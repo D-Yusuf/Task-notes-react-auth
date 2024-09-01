@@ -1,12 +1,18 @@
 import instance from ".";
-
+import { setToken } from "./storage";
 const login = async (userInfo) => {
   const { data } = await instance.post("/auth/login", userInfo);
+  setToken(data.token)
   return data;
 };
 
 const register = async (userInfo) => {
-  const { data } = await instance.post("/auth/register", userInfo);
+  const formData = new FormData()
+  for(let key in userInfo){
+    formData.append(key, userInfo[key])
+  }
+  const { data } = await instance.post("/auth/register", formData);
+  setToken(data.token)
   return data;
 };
 
