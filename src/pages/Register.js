@@ -1,9 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { register } from "../api/auth";
+import UserContext from "../contexts/UserContext ";
 const Register = () => {
   const [userInfo, setUserInfo] = useState({});
-
+  // const [user, setUser] = useContext(UserContext)
   const handleChange = (e) => {
     if (e.target.name === "image") {
       setUserInfo({ ...userInfo, [e.target.name]: e.target.files[0] });
@@ -13,7 +14,8 @@ const Register = () => {
   };
   const {mutate} = useMutation({
     mutationKey : ["register"],
-    mutationFn: ()=> register(userInfo)
+    mutationFn: ()=> register(userInfo),
+
   })
   const handleFormSubmit = (e) => {
     e.preventDefault();

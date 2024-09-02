@@ -3,22 +3,25 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import UserContext from "./contexts/UserContext ";
 import { useEffect, useState } from "react";
-import { getToken } from "./api/storage";
+import { getToken, checkToken } from "./api/storage";
 
 function App() {
   const [user, setUser] = useState(false)
   useEffect(()=>{
-    setUser(!!getToken())
-    console.log(!!getToken())
-  }, [])
+    setUser(checkToken())
+    console.log("use changed")
+    if(user){
+      <Navigate to={"/"}/>
+    }
+  }, [user])
+  
   return (
     <UserContext.Provider value={[user, setUser]}>
 
-    <div className="App font-mono">
-      {user && <Navigate to={"/"}/>}
-      <Navbar />
-      <Outlet />
-    </div>
+      <div className="App font-mono">
+        <Navbar />
+        <Outlet />
+      </div>
     </UserContext.Provider>
 
   );

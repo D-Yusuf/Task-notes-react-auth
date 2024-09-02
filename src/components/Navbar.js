@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { deleteToken } from "../api/storage";
 import { Link, NavLink } from "react-router-dom";
 import UserContext from "../contexts/UserContext ";
 const Navbar = () => {
@@ -36,7 +37,13 @@ const Navbar = () => {
               </NavLink>
 
               
-              {!user && 
+              {user ? <NavLink
+                onClick={deleteToken}
+                  to="/"
+                  className="text-gray-300 hover:bg-red-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                  Logout
+                </NavLink> : 
               <>
                 <NavLink
                   to="/login"

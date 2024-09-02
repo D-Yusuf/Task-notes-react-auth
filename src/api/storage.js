@@ -5,8 +5,11 @@ function setToken(token){
 function getToken(){
     return localStorage.getItem(tokenKeyName)
 }
-function removeToken(){
+function checkToken(){
+    return !!getToken()
+}
+function deleteToken(){
     localStorage.removeItem(tokenKeyName)
 }
 
-export {setToken, getToken, removeToken}
+export {setToken, getToken, checkToken, deleteToken}
